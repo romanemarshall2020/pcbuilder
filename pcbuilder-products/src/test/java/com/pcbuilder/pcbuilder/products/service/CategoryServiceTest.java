@@ -194,7 +194,7 @@ public class CategoryServiceTest {
 
     }
 
-
+    
     public List<Category> reusableCats(){
         Category gpuCat = new Category();
         gpuCat.setId("1");
