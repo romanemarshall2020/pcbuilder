@@ -6,4 +6,9 @@ import lombok.Data;
 public class Category {
    private String id;
    private String name;
+
+   @Override
+   public String toString() {
+    return "Category{id='" + id + "', name='" + name + "'}";
+}
 }

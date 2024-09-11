@@ -4,6 +4,8 @@ import com.pcbuilder.pcbuilder.products.exceptions.ConflictException;
 import com.pcbuilder.pcbuilder.products.exceptions.UserException;
 import com.pcbuilder.pcbuilder.products.models.Category;
 import com.pcbuilder.pcbuilder.products.repository.CategoryRepository;
+
+
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import java.util.Optional;
 
 @SpringBootTest
 public class CategoryServiceTest {
@@ -211,6 +215,26 @@ public class CategoryServiceTest {
 
 
         return List.of(gpuCat, cpuCat,casesCat);
+    }
+
+    @Test
+    public void testGetById() {
+       Category expectedCat = new Category();
+       expectedCat.setId("1");
+       expectedCat.setName("GPU");
+
+       System.out.println("Expected Category: " + expectedCat);
+
+       when(repo.findById("1")).thenReturn(Optional.of(expectedCat));
+
+
+       Optional<Category> actualCategory = categoryService.get("1");
+       System.out.println("Actual Category" + actualCategory);
+
+       assertEquals(Optional.of(expectedCat), actualCategory);
+
+       verify(repo, times(1)).findById("1");
+
     }
 
 

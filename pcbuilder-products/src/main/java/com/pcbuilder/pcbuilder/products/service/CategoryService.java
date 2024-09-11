@@ -6,9 +6,8 @@ import com.pcbuilder.pcbuilder.products.models.Category;
 import com.pcbuilder.pcbuilder.products.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -40,13 +39,20 @@ public class CategoryService {
         return saved;
     }
 
-    public List<Category> list() {
+    public List<Category> list() { 
 
         return repo.findAll();
     }
 
-    public  Category get(String id) {
-        return null;
+    public  Optional<Category> get(String id) {
+        if(id == null){
+            throw new UserException("Entry is null");
+        }
+        if(id == "") {
+            throw new UserException("Entry is blank");
+        }
+        Optional<Category> returnedCategory = repo.findById(id);
+        return returnedCategory;
     }
 
 
